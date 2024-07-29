@@ -6,7 +6,7 @@ export function SharedHeaderComponent(): JSX.Element {
   const router = useRouter();
 
   return (
-    <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg">
+    <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg m-4">
       <div className="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
         <div>
           <button

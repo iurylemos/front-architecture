@@ -14,7 +14,7 @@ export function UsersInterface(): JSX.Element {
   const users = useMemo(() => (data && data.users ? data.users : []), [data]);
 
   return (
-    <section className="flex flex-row gap-12 items-center justify-evenly p-24">
+    <section className="flex flex-row gap-12 items-center justify-evenly p-12">
       {error && <p>Error : {error.message}</p>}
       {loading && <SharedLoadingComponent />}
 

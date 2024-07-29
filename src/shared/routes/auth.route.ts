@@ -1,0 +1,1 @@
+export const sharedAuthRoutes = ["/users", "/"];

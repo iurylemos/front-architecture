@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import { textStateAtom } from "../../atoms";
