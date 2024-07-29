@@ -1,5 +1,5 @@
-import { Dashboard } from "./interfaces/dashboard.interface";
+import { DashboardInterface } from "./interfaces/dashboard.interface";
 
 export const routes = {
-  DASHBOARD: Dashboard,
+  DASHBOARD: DashboardInterface,
 };

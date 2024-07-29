@@ -4,7 +4,6 @@ import { CharacterCounter } from "@/subdomains/home/components/charatercounter/c
 export const DashboardInterface: React.FC = (): JSX.Element => {
   return (
     <section>
-      <h1>Dashboard</h1>
       <CharacterCounter />
     </section>
   );
