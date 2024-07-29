@@ -1,17 +1,25 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import { UPDATE_USER } from "@/subdomains/users/constants";
-import { useMutation } from "@apollo/client";
-import React from "react";
+import {
+  ApolloQueryResult,
+  OperationVariables,
+  useMutation,
+} from "@apollo/client";
 
-type UserBadgeProps = {
+type UserBadgeComponentProps = {
   user: Record<string, string | null | number>;
-  refetch: any;
+  refetch: (
+    variables?: Partial<OperationVariables> | undefined
+  ) => Promise<ApolloQueryResult<any>>;
 };
 
 export function UserBadgeComponent({
   user,
   refetch,
-}: UserBadgeProps): JSX.Element {
+}: UserBadgeComponentProps): JSX.Element {
   const [updateUser] = useMutation(UPDATE_USER);
 
   const updateActiveStatus = async () => {

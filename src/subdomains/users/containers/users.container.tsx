@@ -2,10 +2,9 @@
 
 import React from "react";
 import AppLayout from "@/shared/layouts/app.layout";
-import PublicLayout from "@/shared/layouts/public.layout";
 import { useRouter } from "next/navigation";
 import { UsersInterface } from "@/subdomains/users/interfaces/users.interface";
-import { SharedHeader } from "@/shared/components/header/header.component";
+import { SharedHeaderComponent } from "@/shared/components/header/header.component";
 
 export function UsersContainer(): JSX.Element {
   const router = useRouter();
@@ -14,7 +13,7 @@ export function UsersContainer(): JSX.Element {
 
   return (
     <AppLayout>
-      <SharedHeader />
+      <SharedHeaderComponent />
       <UsersInterface />
     </AppLayout>
   );
