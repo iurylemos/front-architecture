@@ -1,5 +1,7 @@
 "use client";
 
+import AppLayout from "@/shared/layouts/app.layout";
+import PublicLayout from "@/shared/layouts/public.layout";
 import { DashboardInterface } from "@/subdomains/home/interfaces/dashboard.interface";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -12,7 +14,11 @@ export const DashboardContainer: React.FC = (): JSX.Element => {
 
   return (
     <RecoilRoot>
-      <DashboardInterface />
+      <PublicLayout>
+        <AppLayout>
+          <DashboardInterface />
+        </AppLayout>
+      </PublicLayout>
     </RecoilRoot>
   );
 };
