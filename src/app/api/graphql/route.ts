@@ -1,13 +1,15 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
 import { NextRequest } from "next/server";
-import schemas from "@/subdomains/users/schemas";
-import resolvers from "@/subdomains/users/resolvers";
 import { DataSourceUsers } from "@/subdomains/users/datasource";
+import {
+  mergedResolvers,
+  typeDefs,
+} from "@/shared/modules/graphql/merge.resolver";
 
 const server = new ApolloServer({
-  resolvers,
-  typeDefs: schemas,
+  typeDefs,
+  resolvers: mergedResolvers,
 });
 
 const handler = startServerAndCreateNextHandler(server, {
