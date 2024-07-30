@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { UPDATE_USER } from "@/subdomains/users/constants";
+import { UPDATE_USER } from "@/subdomains/users/queries";
 import {
   ApolloQueryResult,
   OperationVariables,
@@ -45,7 +45,7 @@ export function UserBadgeComponent({
         </div>
         <div className="flex flex-col gap-1">
           <span className="m-0 text-sm text-gray-900">
-            {user?.first_name} {user?.last_name}
+            {user?.firstName} {user?.lastName}
           </span>
           <span className="text-[11px] text-gray-600">{user?.email}</span>
         </div>

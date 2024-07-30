@@ -7,7 +7,7 @@ import {
   useMutation,
 } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { CREATE_USER } from "@/subdomains/users/constants";
+import { CREATE_USER } from "@/subdomains/users/queries";
 
 type UserFormComponentProps = {
   refetch: (
@@ -28,13 +28,26 @@ export function UserFormComponent({
   const [createUser] = useMutation(CREATE_USER);
 
   const onSubmit = async (data: any) => {
-    const { age, first_name, last_name, email } = data || {};
+    try {
+      const { age, firstName, lastName, email } = data || {};
 
-    await createUser({
-      variables: { input: { age: Number(age), first_name, last_name, email } },
-    });
-    refetch();
-    reset();
+      console.log("data", data);
+
+      await createUser({
+        variables: {
+          input: {
+            age: Number(age),
+            firstName,
+            lastName,
+            email,
+          },
+        },
+      });
+      refetch();
+      reset();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -47,38 +60,38 @@ export function UserFormComponent({
       </h2>
       <div className="input-wrapper">
         <label
-          htmlFor="first_name"
+          htmlFor="firstName"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           First name
         </label>
         <input
           type="text"
-          id="first_name"
+          id="firstName"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="First name"
           required
-          {...register("first_name", { required: true })}
+          {...register("firstName", { required: true })}
         />
-        {errors.first_name && <span>First name is required</span>}
+        {errors.firstName && <span>First name is required</span>}
       </div>
 
       <div className="input-wrapper">
         <label
-          htmlFor="last_name"
+          htmlFor="lastName"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Last name
         </label>
         <input
           type="text"
-          id="last_name"
+          id="lastName"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="last name"
           required
-          {...register("last_name", { required: true })}
+          {...register("lastName", { required: true })}
         />
-        {errors.last_name && <span>Last name is required</span>}
+        {errors.lastName && <span>Last name is required</span>}
       </div>
 
       <div className="input-wrapper">

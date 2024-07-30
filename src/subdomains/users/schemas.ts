@@ -1,24 +1,37 @@
 const userSchema = `#graphql
   type User {
     id: ID!
-    first_name: String!
-    last_name: String!
+    firstName: String!
+    lastName: String!
     email: String!
     age: Int!
     active: Boolean
-    }
-  
+  }
+
   input NewUserInput {
-    first_name: String!
-    last_name: String!
+    firstName: String!
+    lastName: String!
     email: String!
     age: Int!
   }
+
+  input UpdateUserInput {
+    id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    age: Int
+    active: Boolean
+  }
+
   type Query {
     users: [User]
   }
+
   type Mutation {
     createUser(input: NewUserInput!): User
+    updateUser(input: UpdateUserInput!): User
+    deleteUser(id: ID!): User
   }
 `;
 

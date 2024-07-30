@@ -2,7 +2,7 @@
 
 import { Fragment, useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { FETCH_USERS } from "@/subdomains/users/constants";
+import { FETCH_USERS } from "@/subdomains/users/queries";
 import { UserBadgeComponent } from "@/subdomains/users/components/badge/badge.component";
 import { UserFormComponent } from "@/subdomains/users/components/form/form.component";
 import { SharedLoadingComponent } from "@/shared/components/loading/loading.component";
