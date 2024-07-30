@@ -22,13 +22,25 @@ export function UserBadgeComponent({
 }: UserBadgeComponentProps): JSX.Element {
   const [updateUser] = useMutation(UPDATE_USER);
 
-  const updateActiveStatus = async () => {
-    await updateUser({
-      variables: {
-        input: { id: user?.id, active: user?.active ? false : true },
-      },
-    });
-    refetch();
+  const updateActiveStatus = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    try {
+      event.preventDefault();
+
+      if (!user) return;
+
+      console.log("user", user);
+
+      await updateUser({
+        variables: {
+          input: { id: Number(user.id), active: !user.active },
+        },
+      });
+      refetch();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
