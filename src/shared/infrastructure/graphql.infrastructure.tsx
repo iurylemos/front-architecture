@@ -8,7 +8,7 @@ type GraphQLInfrastructureProps = {
   children: React.ReactNode;
 };
 
-export default function GraphQLInfrastructure({
+export function GraphQLInfrastructure({
   children,
 }: GraphQLInfrastructureProps): JSX.Element {
   return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;

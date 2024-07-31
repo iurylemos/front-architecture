@@ -24,8 +24,10 @@ export function SharedDrawerComponent({
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <div className="flex flex-row gap-3 justify-between mb-10 p-4">
-            <Image src="/images/logo.png" alt="Logo" width={60} height={60} />
-            <span className="text-lg font-bold leading-8">Smart CAA</span>
+            <Image src="/images/logo.png" alt="Logo" width={80} height={60} />
+            <span className="text-lg font-bold tracking-tighter leading-loose ">
+              Smart CAA
+            </span>
           </div>
           {/* Sidebar content here */}
           <li>

@@ -1,5 +1,5 @@
 import React from "react";
-import GraphQLInfrastructure from "@/shared/infrastructure/graphql.infrastructure";
+import { GraphQLInfrastructure } from "@/shared/infrastructure/graphql.infrastructure";
 
 type AppLayoutProps = {
   children: React.ReactNode;

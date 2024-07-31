@@ -11,7 +11,7 @@ type RootInfrastructureProps = {
   children: React.ReactNode;
 };
 
-export default function RootInfrastructure({
+export function RootInfrastructure({
   children,
 }: RootInfrastructureProps): JSX.Element {
   const pathname: string = usePathname();

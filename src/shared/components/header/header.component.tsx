@@ -39,7 +39,9 @@ export function SharedHeaderComponent(): JSX.Element {
           onClick={() => router.push("/")}
         >
           <Image src="/images/logo.png" alt="logo" width={40} height={40} />
-          <span className="text-xl font-semibold leading-4">CAA Smart</span>
+          <span className="text-lg font-bold leading-loose tracking-tighter">
+            CAA Smart
+          </span>
         </button>
       </div>
       <div className="navbar-end">
