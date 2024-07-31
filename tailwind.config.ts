@@ -6,9 +6,6 @@ const config: Config = {
     "./src/shared/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/subdomains/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
 export default config;
