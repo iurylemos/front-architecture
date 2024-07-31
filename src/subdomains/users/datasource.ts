@@ -1,13 +1,12 @@
 import { User } from "@/shared/modules/types/user.type";
-import { PrismaClient } from "@prisma/client";
+import { prismaClient } from "@/shared/modules/prisma/prisma.client";
 import { UpdateInput } from "@/subdomains/users/types";
 
-const prisma = new PrismaClient();
 export class DataSourceUsers {
   // Function to fetch all users
   async getAllUsers(): Promise<UpdateInput[]> {
     try {
-      return await prisma.user.findMany();
+      return await prismaClient.user.findMany();
     } catch (error) {
       throw new Error("Failed to fetch users");
     }
@@ -16,7 +15,7 @@ export class DataSourceUsers {
   // Function to create a new user
   async createUser({ input }: { input: User }): Promise<UpdateInput> {
     try {
-      return await prisma.user.create({
+      return await prismaClient.user.create({
         data: {
           ...input,
           active: true,
@@ -34,7 +33,7 @@ export class DataSourceUsers {
 
       const { [keyId]: id, ...rest } = input;
 
-      const checkUser = await prisma.user.findFirst({
+      const checkUser = await prismaClient.user.findFirst({
         where: {
           id: Number(id),
         },
@@ -42,7 +41,7 @@ export class DataSourceUsers {
 
       if (!checkUser) throw new Error("User does not exists");
 
-      const userUpdated = await prisma.user.update({
+      const userUpdated = await prismaClient.user.update({
         where: {
           id: checkUser.id,
         },
