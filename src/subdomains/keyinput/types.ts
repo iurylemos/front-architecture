@@ -143,7 +143,7 @@ export interface CurrencyRate {
 }
 
 export interface RefFormData {
-  id: number;
+  id?: number;
   name: string;
   productId: number;
   bomId?: number | null;

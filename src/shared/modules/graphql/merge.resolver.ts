@@ -19,6 +19,7 @@ import {
   keyInputResolvers,
   currencyResolvers,
   customerResolvers,
+  productResolvers,
 } from "@/subdomains/keyinput/resolvers";
 
 const schemas = [
@@ -42,6 +43,7 @@ const resolvers = [
   keyInputResolvers,
   currencyResolvers,
   customerResolvers,
+  productResolvers,
 ];
 
 export const typeDefs = mergeTypeDefs(schemas);

@@ -9,7 +9,7 @@ import {
   NewCustomerInput,
   UpdateCustomerInput,
 } from "@/subdomains/keyinput/types";
-import { Currency, Customer } from "@prisma/client";
+import { Currency, Customer, Product } from "@prisma/client";
 import { DataSourceKeyInputs } from "@/subdomains/keyinput/datasource";
 
 // Key Input Resolvers
@@ -180,4 +180,76 @@ const customerResolvers = {
   },
 };
 
-export { keyInputResolvers, currencyResolvers, customerResolvers };
+const productResolvers = {
+  Query: {
+    products: async (
+      _: any,
+      __: any,
+      context: { dataSources: { keyInputs: DataSourceKeyInputs } }
+    ): Promise<Product[]> => {
+      try {
+        return await context.dataSources.keyInputs.getAllProducts();
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+        throw new Error("Failed to fetch products");
+      }
+    },
+    product: async (
+      _: any,
+      { id }: { id: number },
+      context: { dataSources: { keyInputs: DataSourceKeyInputs } }
+    ): Promise<Product | null> => {
+      try {
+        return await context.dataSources.keyInputs.getProductById(id);
+      } catch (error) {
+        console.error("Failed to fetch product", error);
+        throw new Error("Failed to fetch product");
+      }
+    },
+  },
+  Mutation: {
+    createProduct: async (
+      _: any,
+      { name }: { name: string },
+      context: Context
+    ): Promise<Product> => {
+      try {
+        return await context.dataSources.keyInputs.createProduct({ name });
+      } catch (error) {
+        console.log("createProduct - Error", error);
+        throw new Error("Failed to create product");
+      }
+    },
+    updateProduct: async (
+      _: any,
+      { id, name }: { id: number; name: string },
+      context: Context
+    ): Promise<Product> => {
+      try {
+        return await context.dataSources.keyInputs.updateProduct({ id, name });
+      } catch (error) {
+        console.log("updateProduct - Error", error);
+        throw new Error("Failed to update product");
+      }
+    },
+    deleteProduct: async (
+      _: any,
+      { id }: { id: number },
+      context: Context
+    ): Promise<Product> => {
+      try {
+        return await context.dataSources.keyInputs.deleteProduct(id);
+      } catch (error) {
+        console.log("deleteProduct - Error", error);
+        throw new Error("Failed to delete product");
+      }
+    },
+  },
+};
+
+export {
+  keyInputResolvers,
+  currencyResolvers,
+  customerResolvers,
+  productResolvers,
+};

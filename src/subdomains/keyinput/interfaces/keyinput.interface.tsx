@@ -8,8 +8,13 @@ import {
   KeyInputFormData,
   TriggerEventKeyInputForm,
 } from "@/subdomains/keyinput/types";
-import { KeyInputStepsComponent } from "../components/steps/steps.component";
-import { KeyInputGeneralInformationComponent } from "../components/generalinformation/generalinformation.component";
+import { KeyInputStepsComponent } from "@/subdomains/keyinput/components/steps/steps.component";
+import { KeyInputGeneralInformationComponent } from "@/subdomains/keyinput/components/generalinformation/generalinformation.component";
+import { KeyInputRefsComponent } from "@/subdomains/keyinput/components/refs/refs.component";
+import { KeyInputTeamComponent } from "@/subdomains/keyinput/components/team/team.component";
+import { KeyInputMilestoneComponent } from "../components/milestone/milestone.component";
+import { KeyInputCurrencyRatesComponent } from "../components/currencyrates/currencyrates.component";
+import { KeyInputMaterialRatesComponent } from "../components/materialrates/materialrates.component";
 
 export function KeyInputInterface(): JSX.Element {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -191,6 +196,11 @@ export function KeyInputInterface(): JSX.Element {
             className="max-w-md md:max-w-xl mx-auto bg-gray-200 p-4 rounded-md shadow-sm"
           >
             {currentStep === 1 && <KeyInputGeneralInformationComponent />}
+            {currentStep === 2 && <KeyInputTeamComponent />}
+            {currentStep === 2 && <KeyInputRefsComponent />}
+            {currentStep === 4 && <KeyInputMilestoneComponent />}
+            {currentStep === 5 && <KeyInputCurrencyRatesComponent />}
+            {currentStep === 6 && <KeyInputMaterialRatesComponent />}
 
             {/* Navigation Buttons */}
             <div className="mt-6">

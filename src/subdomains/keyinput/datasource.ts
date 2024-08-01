@@ -9,7 +9,7 @@ import {
   NewCustomerInput,
   UpdateCustomerInput,
 } from "@/subdomains/keyinput/types";
-import { Currency, Customer } from "@prisma/client";
+import { Currency, Customer, Product } from "@prisma/client";
 
 export class DataSourceKeyInputs {
   // Function to fetch all KeyInputs
@@ -233,6 +233,75 @@ export class DataSourceKeyInputs {
     } catch (error) {
       console.log("deleteCustomer - Error", error);
       throw new Error("Failed to delete Customer");
+    }
+  }
+
+  // Product Methods
+  async getAllProducts(): Promise<Product[]> {
+    try {
+      return await prismaClient.product.findMany();
+    } catch (error) {
+      console.error("Failed to fetch Products", error);
+      throw new Error("Failed to fetch Products");
+    }
+  }
+
+  async getProductById(id: number): Promise<Product | null> {
+    try {
+      return await prismaClient.product.findUnique({
+        where: { id },
+      });
+    } catch (error) {
+      console.error("Failed to fetch Product by ID", error);
+      throw new Error("Failed to fetch Product by ID");
+    }
+  }
+
+  async createProduct(data: { name: string }): Promise<Product> {
+    try {
+      return await prismaClient.product.create({
+        data,
+      });
+    } catch (error) {
+      console.log("createProduct - Error", error);
+      throw new Error("Failed to create Product");
+    }
+  }
+
+  async updateProduct(data: { id: number; name: string }): Promise<Product> {
+    try {
+      const { id, name } = data;
+
+      const checkProduct = await prismaClient.product.findUnique({
+        where: { id },
+      });
+
+      if (!checkProduct) throw new Error("Product does not exist");
+
+      return await prismaClient.product.update({
+        where: { id },
+        data: { name },
+      });
+    } catch (error) {
+      console.log("updateProduct - Error", error);
+      throw new Error("Failed to update Product");
+    }
+  }
+
+  async deleteProduct(id: number): Promise<Product> {
+    try {
+      const checkProduct = await prismaClient.product.findUnique({
+        where: { id },
+      });
+
+      if (!checkProduct) throw new Error("Product does not exist");
+
+      return await prismaClient.product.delete({
+        where: { id },
+      });
+    } catch (error) {
+      console.log("deleteProduct - Error", error);
+      throw new Error("Failed to delete Product");
     }
   }
 }

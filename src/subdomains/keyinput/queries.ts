@@ -419,3 +419,66 @@ export const DELETE_CUSTOMER = gql`
     }
   }
 `;
+
+export const FETCH_PRODUCTS = gql`
+  query getProducts {
+    products {
+      id
+      name
+      references {
+        id
+        name
+      }
+      boms {
+        id
+        BOM
+        Description
+      }
+    }
+  }
+`;
+
+export const FETCH_PRODUCT_BY_ID = gql`
+  query getProductById($id: Int!) {
+    product(id: $id) {
+      id
+      name
+      references {
+        id
+        name
+      }
+      boms {
+        id
+        BOM
+        Description
+      }
+    }
+  }
+`;
+
+export const CREATE_PRODUCT = gql`
+  mutation createProduct($input: NewProductInput!) {
+    createProduct(input: $input) {
+      id
+      name
+    }
+  }
+`;
+
+export const UPDATE_PRODUCT = gql`
+  mutation updateProduct($input: UpdateProductInput!) {
+    updateProduct(input: $input) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_PRODUCT = gql`
+  mutation deleteProduct($id: Int!) {
+    deleteProduct(id: $id) {
+      id
+      name
+    }
+  }
+`;
