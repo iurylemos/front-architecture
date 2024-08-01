@@ -1,1 +1,1 @@
-export const sharedAuthRoutes = ["/users", "/"];
+export const sharedAuthRoutes = ["/users", "/", "/keyinput"];
