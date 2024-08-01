@@ -48,8 +48,8 @@ export function UserBadgeComponent({
       <div className="flex flex-row gap-2">
         <div className="border border-black items-center flex p-2 h-10 w-10 rounded-full bg-white">
           <Image
-            src="/next.svg"
-            alt=""
+            src="/images/logo.png"
+            alt="logo"
             width={20}
             height={20}
             className="rounded-full"

@@ -21,3 +21,204 @@ model User {
   age       Int
   active    Boolean @default(true)
 }
+
+model Bom {
+  id                                                   Int         @id @default(autoincrement())
+  BOM                                                  String
+  Description                                          String
+  MaterialType                                         String
+  WeightGrossFilledByPurchasing                        String
+  WeightNetFilledByRD                                  String
+  Material                                             String
+  MaterialPurchaseCurrency                             String
+  MaterialCostInPurchaseCurrency                       String
+  VP                                                   String
+  PTBV                                                 String
+  MakeBuyIntercos                                      String
+  Supplier                                             String
+  Country                                              String
+  Incoterms                                            String
+  ComponentPurchaseCurrency                            String
+  AVInCompPurchCurrency                                String
+  ComponentCostAtPurchaseCurrency                      String
+  ComponentInCurrency                                  String
+  FreightInCurrency                                    String
+  PackagingInCurrency                                  String
+  DutiesInCurrency                                     String
+  Target                                               String
+  CommentsOnPV_PTBVPrice_LTA_AndProductivitiesLifetime String
+  Sops                                                 Sops[]
+  Total                                                String
+  productId                                            Int
+  product                                              Product     @relation(fields: [productId], references: [id])
+  refs                                                 Reference[] // Updated relation name
+
+  @@index([productId], name: "idx_product_id")
+}
+
+model Sops {
+  id    Int    @id @default(autoincrement())
+  value String
+  bom   Bom    @relation(fields: [bomId], references: [id])
+  bomId Int
+}
+
+model Customer {
+  id                  Int                            @id @default(autoincrement())
+  name                String                         @unique
+  generalInformations GeneralInformationsKeyInputs[]
+}
+
+model Currency {
+  id                  Int                            @id @default(autoincrement())
+  name                String                         @unique
+  generalInformations GeneralInformationsKeyInputs[]
+  keyInputs           KeyInputs[]
+}
+
+model Product {
+  id         Int         @id @default(autoincrement())
+  name       String      @unique
+  references Reference[] // Updated relation name
+  boms       Bom[]
+}
+
+model GeneralInformationsKeyInputs {
+  id                Int        @id @default(autoincrement())
+  customerId        Int
+  project           String
+  modelVehicle      String
+  country           String
+  productionSite    String
+  quoteDispatchDate DateTime
+  firstYearOfCAA    Int
+  firstSopDate      DateTime
+  currencyId        Int
+  keyInputId        Int?       @unique
+  keyInputs         KeyInputs?
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  currency Currency @relation(fields: [currencyId], references: [id])
+
+  @@unique([customerId, project])
+}
+
+model TeamKeyInputs {
+  id                     Int        @id @default(autoincrement())
+  platformManager        String
+  technicalProjectLeader String
+  purchasingLeader       String
+  processLeader          String
+  financeContributor     String
+  salesLeader            String
+  projectName            String
+  productName            String
+  keyInputId             Int?       @unique
+  keyInputs              KeyInputs?
+
+  @@unique([platformManager, technicalProjectLeader, projectName])
+}
+
+model KeyInputs {
+  id                    Int                           @id @default(autoincrement())
+  generalInformationsId Int?                          @unique
+  teamId                Int?                          @unique
+  currencyId            Int
+  currencyRatesId       Int
+  materialRatesId       Int
+  milestonesId          Int?
+  refs                  Reference[]
+  currency              Currency                      @relation(fields: [currencyId], references: [id])
+  currencyRates         CurrencyRates                 @relation(fields: [currencyRatesId], references: [id])
+  materialRates         MaterialRates                 @relation(fields: [materialRatesId], references: [id])
+  generalInformations   GeneralInformationsKeyInputs? @relation(fields: [generalInformationsId], references: [id])
+  team                  TeamKeyInputs?                @relation(fields: [teamId], references: [id])
+  milestones            Milestones?                   @relation(fields: [milestonesId], references: [id])
+}
+
+model Reference {
+  id        Int    @id @default(autoincrement())
+  name      String
+  productId Int
+
+  product     Product    @relation(fields: [productId], references: [id])
+  Bom         Bom?       @relation(fields: [bomId], references: [id])
+  bomId       Int?
+  KeyInputs   KeyInputs? @relation(fields: [keyInputsId], references: [id])
+  keyInputsId Int?
+}
+
+model Milestones {
+  id        Int         @id @default(autoincrement())
+  npav      DateTime?
+  caav      DateTime?
+  prkf      DateTime?
+  reqf      DateTime?
+  isd       DateTime?
+  soco      DateTime?
+  ffv       DateTime?
+  efv       DateTime?
+  desf      DateTime?
+  iarv      DateTime?
+  afv       DateTime?
+  togo      DateTime?
+  ofto      DateTime?
+  otop      DateTime?
+  fdpr      DateTime?
+  sssr      DateTime?
+  crar      DateTime?
+  isva      DateTime?
+  sopr      DateTime?
+  sop       DateTime?
+  prcl      DateTime?
+  KeyInputs KeyInputs[]
+}
+
+model CurrencyRates {
+  id        Int         @id @default(autoincrement())
+  usd       Float?
+  cny       Float?
+  thb       Float?
+  inr       Float?
+  pln       Float?
+  jpy       Float?
+  brl       Float?
+  rub       Float?
+  czk       Float?
+  try       Float?
+  mrd       Float?
+  eur       Float?
+  krw       Float?
+  ron       Float?
+  zar       Float?
+  keyInputs KeyInputs[]
+}
+
+model MaterialRates {
+  id                     Int         @id @default(autoincrement())
+  aluLME                 Float?
+  aluPremiumYinbang      Float?
+  aluPremiumAlcha        Float?
+  aluPremium             Float?
+  aluMidwestDDU          Float?
+  aluSHFE                Float?
+  stampingStockSidePlate Float?
+  stampingStockManifolds Float?
+  pptv20                 Float?
+  pptv40                 Float?
+  pp54Scolefin           Float?
+  ppGf30                 Float?
+  pa6Gf30                Float?
+  pa610                  Float?
+  pa66Gf30               Float?
+  pa66Gf35               Float?
+  ppaGf50                Float?
+  abs                    Float?
+  pom                    Float?
+  tpeShore40             Float?
+  tpeShore25             Float?
+  molykoteGrease         Float?
+  pptv40TpeShore40       Float?
+  ppC3IndexValue         Float?
+  keyInputs              KeyInputs[]
+}
