@@ -6,6 +6,7 @@ import {
   mergedResolvers,
   typeDefs,
 } from "@/shared/modules/graphql/merge.resolver";
+import { DataSourceKeyInputs } from "@/subdomains/keyinput/datasource";
 
 const server = new ApolloServer({
   typeDefs,
@@ -18,6 +19,7 @@ const handler = startServerAndCreateNextHandler(server, {
     res,
     dataSources: {
       users: new DataSourceUsers(),
+      keyInputs: new DataSourceKeyInputs(),
     },
   }),
 });

@@ -36,6 +36,9 @@ export function SharedDrawerComponent({
           <li>
             <Link href="/users">Users</Link>
           </li>
+          <li>
+            <Link href="/keyinput">KeyInput</Link>
+          </li>
         </ul>
       </div>
     </div>
